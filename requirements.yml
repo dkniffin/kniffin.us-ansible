@@ -1,0 +1,9 @@
+- src: jdauphant.nginx
+- src: ANXS.postgresql
+- src: geerlingguy.ruby
+- src: geerlingguy.php
+- src: geerlingguy.mysql
+- src: geerlingguy.firewall
+- src: carlosbuenosvinos.ansistrano-deploy
+- src: geerlingguy.git
+- src: geerlingguy.dotfiles

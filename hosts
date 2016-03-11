@@ -1,2 +1,2 @@
 [main]
-ec2-54-218-60-76.us-west-2.compute.amazonaws.com ansible_ssh_user=ubuntu
+ec2-54-218-60-76.us-west-2.compute.amazonaws.com

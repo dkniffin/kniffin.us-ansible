@@ -1,0 +1,23 @@
+- name: Make sure data directory exists
+  file:
+    path: /data/webtrees
+    state: directory
+    recurse: yes
+    mode: 0777
+
+- name: remove empty data dir
+  file:
+    path: /apps/webtrees/current/data
+    state: absent
+
+- name: symlink data dir
+  file:
+    src: /data/webtrees
+    dest: /apps/webtrees/current/data
+    state: link
+
+- name: Symlink /usr/share/nginx/html/webtrees -> /apps/webtrees
+  file:
+    src: /apps/webtrees/current
+    dest: /usr/share/nginx/html/webtrees
+    state: link

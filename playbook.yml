@@ -1,0 +1,58 @@
+---
+- hosts: all
+  user: root
+  roles:
+    # - geerlingguy.git
+    # - role: geerlingguy.dotfiles
+    #   dotfiles_repo: "https://github.com/dkniffin/homefiles.git"
+    #   dotfiles_repo_local_destination: "~/repos/homefiles"
+    #   dotfiles_files:
+    #     - .gitconfig
+    #     - .gitignore_global
+    #     - .vimrc
+    #     - .zshrc
+    # - geerlingguy.firewall
+    # - role: geerlingguy.mysql
+    #   mysql_users:
+    #     - name: webtrees
+    #       host: localhost
+    #       password: webtrees
+    #       priv: webtrees.*:all
+    #   mysql_databases:
+    #     - name: webtrees
+    # - role: geerlingguy.php
+    #   php_webserver_daemon: "nginx"
+    #   php_enable_php_fpm: true
+    #   php_fpm_listen: "/var/run/php5-fpm.sock"
+    #   php_packages:
+    #     - php5-gd
+    #     - php5-mysql
+    - role: jdauphant.nginx
+      nginx_sites:
+        default:
+          - listen 80
+          - root /usr/share/nginx/html
+          - index index.html
+          - location / { try_files $uri $uri.html $uri.php $uri/; }
+          - location ~ [^/]\.php(/|$) {
+              fastcgi_split_path_info ^(.+?\.php)(/.*)$;
+              if (!-f $document_root$fastcgi_script_name) {
+                  return 404;
+              }
+
+              fastcgi_pass unix:/var/run/php5-fpm.sock;
+              fastcgi_index index.php;
+              include fastcgi_params;
+            }
+          - location /webtrees {
+              index index.php;
+            }
+    # - role: carlosbuenosvinos.ansistrano-deploy
+    #   ansistrano_deploy_to: "/apps/webtrees"
+    #   ansistrano_deploy_via: "git"
+    #   ansistrano_git_repo: git@github.com:fisharebest/webtrees.git
+    #   ansistrano_git_branch: 1.7.3
+    #   ansistrano_keep_releases: 1
+    # - configure-webtrees
+    # - ANXS.postgresql
+    # - geerlingguy.ruby
